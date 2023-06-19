@@ -6,14 +6,15 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 function App() {
   const inputRef = useRef();
-  const firstLoad = useRef(true);
   const [msg, setMsg] = useState("");
-
+  //
+  // optional, only to check how to avoir first load useEffect
+  const firstLoad = useRef(true);
   const [firstname, setFirstname] = useState("");
-
   useEffect(() => {
-    if (!firstLoad.current) console.log("render en cours");
-    else firstLoad.current = false;
+    // if is first load, we only switch boolean value
+    if (firstLoad.current) firstLoad.current = false;
+    else firstLoad.current = console.warn("render en cours");
   }, [firstname]);
 
   const hSubmit = (e) => {
@@ -36,6 +37,7 @@ function App() {
     <div className="App">
       <p>{msg && msg}</p>
       <form encType="multipart/form-data" onSubmit={hSubmit}>
+        {/* firstname optional, just for useEffect issue */}
         <p>
           {" "}
           <input
